@@ -50,7 +50,7 @@
  *                           cluster before the markers are hidden and a count
  *                           is shown.
  *     'ignoreHiddenMarkers': (boolean) Whether to ignore markers that are not
- *                            visible or count and cluster them anyway 
+ *                            visible or count and cluster them anyway
  *     'styles': (Array) An array of objects with these properties:
  *       'url': (string) The image url.
  *       'height': (number) The image height.
@@ -112,7 +112,7 @@ function MarkerClusterer(map, opt_markers, opt_options) {
 
     /**
      * @private
-     * @type {string} Set a default Cluster Class 
+     * @type {string} Set a default Cluster Class
      */
     this.cssDefaultClass_ = 'cluster';
 
@@ -403,9 +403,9 @@ MarkerClusterer.prototype.getMaxZoom = function() {
 
 /**
  * Gets marker's cluster object based on given marker
- * 
+ *
  * @param  {google.maps.Marker} marker
- * 
+ *
  * @return {Cluster}
  */
 MarkerClusterer.prototype.getMarkersCluster = function(marker) {
@@ -1417,7 +1417,6 @@ ClusterIcon.prototype.createCss = function(pos) {
 // Export Symbols for Closure
 // If you are not going to compile with closure then you can remove the
 // code below.
-window['MarkerClusterer'] = MarkerClusterer;
 MarkerClusterer.prototype['addMarker'] = MarkerClusterer.prototype.addMarker;
 MarkerClusterer.prototype['addMarkers'] = MarkerClusterer.prototype.addMarkers;
 MarkerClusterer.prototype['clearMarkers'] =
@@ -1464,3 +1463,24 @@ Cluster.prototype['getMarkers'] = Cluster.prototype.getMarkers;
 ClusterIcon.prototype['onAdd'] = ClusterIcon.prototype.onAdd;
 ClusterIcon.prototype['draw'] = ClusterIcon.prototype.draw;
 ClusterIcon.prototype['onRemove'] = ClusterIcon.prototype.onRemove;
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define([], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory();
+    } else {
+        // Browser globals (root is window)
+        root.returnExports = factory();
+    }
+}(this, function () {
+
+    // Just return a value to define the module export.
+    // This example returns an object, but the module
+    // can return a function as the exported value.
+    return MarkerClusterer;
+}));
